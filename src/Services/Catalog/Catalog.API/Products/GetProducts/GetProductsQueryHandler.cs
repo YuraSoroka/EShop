@@ -14,6 +14,12 @@ internal class GetProductsQueryHandler
         var products = await session.Query<Product>()
             .ToPagedListAsync(query.PageNumber ?? 1, query.PageSize ?? 10, cancellationToken);
 
+        await Console.Out.WriteLineAsync($"{products.IsFirstPage}");
+        await Console.Out.WriteLineAsync($"{products.HasNextPage}");
+        await Console.Out.WriteLineAsync($"{products.HasPreviousPage}");
+        await Console.Out.WriteLineAsync($"{products.PageCount}");
+
+
         return new GetProductsResult(products);
     }
 }
